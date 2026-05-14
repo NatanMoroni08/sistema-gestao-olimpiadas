@@ -56,7 +56,7 @@ Abaixo estão os diagramas UML que modelam o sistema SGO.
 
 O diagrama de caso de uso descreve as principais interações entre os atores (usuários) e o sistema.
 
-<img width="800px" src="./imagens/diagrama-de-caso-de-uso.png" alt="Diagrama de Caso de Uso">
+![casos-uso](./images/diagrama-de-caso-de-uso.png)
 
 ### Diagrama de Classes
 
