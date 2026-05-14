@@ -1,0 +1,42 @@
+@startuml
+' Definição do título do diagrama
+title Diagrama de Implantação - SGO
+
+' Nós de Hardware
+node "Dispositivo do Usuário" as UserDevice {
+  artifact "Navegador Web" as Browser
+}
+
+node "Servidor Web / Load Balancer" as WebServer {
+  artifact "Nginx"
+}
+
+node "Cluster de Servidores de Aplicação" as AppCluster {
+  node "Servidor App 1" as AppServer1 {
+    artifact "api-gateway.jar" as GatewayArtifact1
+    artifact "competicoes.jar" as CompeticaoArtifact1
+    artifact "inscricoes.jar" as InscricaoArtifact1
+  }
+  node "Servidor App 2" as AppServer2 {
+    artifact "api-gateway.jar" as GatewayArtifact2
+    artifact "alocacao.jar" as AlocacaoArtifact2
+    artifact "relatorios.jar" as RelatoriosArtifact2
+  }
+}
+
+node "Cluster de Banco de Dados" as DbCluster {
+  node "DB Primário" as DbPrimary {
+    database "SGO Database" as SgoDb
+  }
+  node "DB Réplica" as DbReplica {
+    database "SGO Database (Réplica)" as SgoDbReplica
+  }
+}
+
+' Relacionamentos de comunicação
+Browser -> WebServer : "HTTPS"
+WebServer -> AppCluster : "HTTP (roteamento)"
+AppCluster -> DbCluster : "Conexão JDBC"
+DbPrimary -- DbReplica : "Replicação"
+
+@enduml

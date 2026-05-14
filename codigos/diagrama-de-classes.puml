@@ -1,0 +1,61 @@
+@startuml
+' Definição do título do diagrama
+title Diagrama de Classes - SGO
+
+' Estilo do diagrama
+skinparam classAttributeIconSize 0
+hide empty members
+
+class Pais {
+  -id: Long
+  -nome: String
+  -sigla: String
+}
+
+class Atleta {
+  -id: Long
+  -nome: String
+  -dataNascimento: Date
+}
+
+class Modalidade {
+  -id: Long
+  -nome: String
+}
+
+class Local {
+  -id: Long
+  -nome: String
+  -capacidade: Integer
+}
+
+class Competicao {
+  -id: Long
+  -data: DateTime
+  -horario: Time
+}
+
+class Inscricao {
+  -dataInscricao: DateTime
+}
+
+class Resultado {
+  -posicao: Integer ' 1=Ouro, 2=Prata, 3=Bronze
+  -marca: String ' Ex: tempo, pontos
+}
+
+' Relacionamentos
+Atleta "1" -- "1" Pais : representa >
+Competicao "1" -- "1" Modalidade : é da modalidade >
+Competicao "1" -- "1" Local : ocorre em >
+
+' Associação muitos-para-muitos entre Atleta e Competição através da classe Inscricao
+(Atleta, Competicao) .. Inscricao
+Inscricao "1" -- "1" Atleta
+Inscricao "1" -- "1" Competicao
+
+' Relacionamento entre Competição, Atleta e Resultado
+Resultado "1" -- "1" Competicao : refere-se a >
+Resultado "1" -- "1" Atleta : premia >
+
+@enduml

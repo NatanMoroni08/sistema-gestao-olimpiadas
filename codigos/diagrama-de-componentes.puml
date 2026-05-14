@@ -1,0 +1,49 @@
+@startuml
+' Definição do título do diagrama
+title Diagrama de Componentes - SGO
+
+' Estilo do diagrama
+skinparam componentStyle uml2
+
+package "Interface do Usuário" {
+  [Interface Web (React/Vue)] as UI
+}
+
+package "Backend (Servidor de Aplicação)" {
+  [API Gateway] as Gateway
+
+  component "Módulo de Competições" as ModuloCompeticoes
+  component "Módulo de Inscrições" as ModuloInscricoes
+  component "Módulo de Alocação" as ModuloAlocacao
+  component "Módulo de Resultados e Relatórios" as ModuloRelatorios
+}
+
+package "Persistência" {
+  database "Banco de Dados (PostgreSQL)" as DB
+}
+
+' Interfaces
+interface ICompeticao
+interface IInscricao
+interface IAlocacao
+interface IResultado
+
+' Relacionamentos
+UI --> Gateway : "solicitações HTTP/JSON"
+
+Gateway --> ModuloCompeticoes
+Gateway --> ModuloInscricoes
+Gateway --> ModuloAlocacao
+Gateway --> ModuloRelatorios
+
+ModuloCompeticoes - ICompeticao
+ModuloInscricoes - IInscricao
+ModuloAlocacao - IAlocacao
+ModuloRelatorios - IResultado
+
+ModuloCompeticoes --( DB : "JDBC/JPA"
+ModuloInscricoes --( DB : "JDBC/JPA"
+ModuloAlocacao --( DB : "JDBC/JPA"
+ModuloRelatorios --( DB : "JDBC/JPA"
+
+@enduml

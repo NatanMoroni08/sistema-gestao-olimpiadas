@@ -1,0 +1,35 @@
+@startuml
+' Definição do título do diagrama
+title Diagrama de Pacotes - SGO
+
+' Estilo do diagrama
+skinparam packageStyle rectangle
+
+package "Gestão de Competições" as GestaoCompeticoes {
+  class Competicao
+  class Modalidade
+}
+
+package "Gestão de Participantes" as GestaoParticipantes {
+  class Atleta
+  class Pais
+  class Inscricao
+}
+
+package "Infraestrutura" as Infraestrutura {
+  class Local
+}
+
+package "Resultados e Relatórios" as ResultadosRelatorios {
+  class Resultado
+  class RelatorioMedalhas
+}
+
+' Dependências entre os pacotes
+GestaoCompeticoes --> Infraestrutura : "depende de"
+GestaoCompeticoes --> GestaoParticipantes : "depende de"
+ResultadosRelatorios --> GestaoCompeticoes : "depende de"
+ResultadosRelatorios --> GestaoParticipantes : "depende de"
+GestaoParticipantes --> GestaoCompeticoes : "depende de (para inscrição)"
+
+@enduml

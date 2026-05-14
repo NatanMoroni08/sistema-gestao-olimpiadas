@@ -1,0 +1,31 @@
+@startuml
+' Definição do título do diagrama
+title Diagrama de Caso de Uso - SGO
+
+' Estilo do diagrama
+skinparam actorStyle awesome
+left to right direction
+
+actor "Administrador do Comitê" as Admin
+actor "Atleta" as Atleta
+
+rectangle "Sistema de Gestão das Olimpíadas (SGO)" {
+  usecase "Cadastrar Competição" as UC1
+  usecase "Alocar Local" as UC2
+  usecase "Registrar Resultados" as UC3
+  usecase "Gerar Relatório de Medalhas" as UC4
+  usecase "Inscrever-se em Competição" as UC5
+  usecase "Gerenciar Inscrições" as UC6
+}
+
+' Relacionamentos do Administrador
+Admin -- UC1
+Admin -- UC2
+Admin -- UC3
+Admin -- UC4
+Admin -- UC6
+
+' Relacionamentos do Atleta
+Atleta -- UC5
+
+@enduml
