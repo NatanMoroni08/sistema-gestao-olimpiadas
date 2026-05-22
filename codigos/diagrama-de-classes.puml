@@ -2,10 +2,6 @@
 ' Definição do título do diagrama
 title Diagrama de Classes - SGO
 
-' Estilo do diagrama
-skinparam classAttributeIconSize 0
-hide empty members
-
 class Pais {
   -id: Long
   -nome: String
@@ -16,6 +12,8 @@ class Atleta {
   -id: Long
   -nome: String
   -dataNascimento: Date
+  +inscrever(competicao: Competicao): void
+  +getInscricoes(): List<Inscricao>
 }
 
 class Modalidade {
@@ -27,16 +25,23 @@ class Local {
   -id: Long
   -nome: String
   -capacidade: Integer
+  +verificarDisponibilidade(data: DateTime, horario: Time): boolean
 }
 
 class Competicao {
   -id: Long
   -data: DateTime
   -horario: Time
+  +adicionarInscricao(inscricao: Inscricao): void
+  +alocarLocal(local: Local): void
+  +registrarResultado(resultado: Resultado): void
 }
 
 class Inscricao {
   -dataInscricao: DateTime
+  -status: String
+  +confirmar(): void
+  +cancelar(): void
 }
 
 class Resultado {
@@ -44,18 +49,21 @@ class Resultado {
   -marca: String ' Ex: tempo, pontos
 }
 
-' Relacionamentos
-Atleta "1" -- "1" Pais : representa >
-Competicao "1" -- "1" Modalidade : é da modalidade >
-Competicao "1" -- "1" Local : ocorre em >
+' --- Relacionamentos ---
 
-' Associação muitos-para-muitos entre Atleta e Competição através da classe Inscricao
-(Atleta, Competicao) .. Inscricao
-Inscricao "1" -- "1" Atleta
-Inscricao "1" -- "1" Competicao
+' Um Atleta representa um País.
+Atleta "*" --> "1" Pais
 
-' Relacionamento entre Competição, Atleta e Resultado
-Resultado "1" -- "1" Competicao : refere-se a >
-Resultado "1" -- "1" Atleta : premia >
+' Uma Competição é de uma Modalidade e ocorre em um Local.
+Competicao "*" --> "1" Modalidade
+Competicao "*" --> "1" Local
+
+' A relação N-N entre Atleta e Competição é mediada pela classe de associação Inscricao.
+Atleta "1" --> "0..*" Inscricao
+Competicao "1" --> "0..*" Inscricao
+
+' Um Resultado pertence a uma Competição e a um Atleta.
+Resultado "*" --> "1" Competicao
+Resultado "*" --> "1" Atleta
 
 @enduml

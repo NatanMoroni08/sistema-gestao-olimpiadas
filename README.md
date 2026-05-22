@@ -62,7 +62,7 @@ O diagrama de caso de uso descreve as principais interações entre os atores (u
 
 O diagrama de classes representa a estrutura estática do sistema, mostrando as principais entidades, seus atributos e relacionamentos.
 
-<img width="800px" src="./imagens/diagrama-de-classes.png" alt="Diagrama de Classes">
+![diagrama-classes](./images/classes.png)
 
 ### Diagrama de Pacotes
 
