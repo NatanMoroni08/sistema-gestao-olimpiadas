@@ -83,12 +83,13 @@ package "model" #AED6F1 {
 
     package "entity" {
 
-        class Competicao
-        class Atleta
         class Pais
+        class Atleta
+        class Modalidade
         class Local
-        class Resultado
+        class Competicao
         class Inscricao
+        class Resultado
     }
 
     package "enum" {
