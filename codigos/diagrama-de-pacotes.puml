@@ -1,35 +1,143 @@
 @startuml
-' Definição do título do diagrama
-title Diagrama de Pacotes - SGO
 
-' Estilo do diagrama
+!theme plain
 skinparam packageStyle rectangle
+skinparam shadowing false
 
-package "Gestão de Competições" as GestaoCompeticoes {
-  class Competicao
-  class Modalidade
+package "view" #D6EAF8 {
+
+    package "dashboard" {
+    }
+
+    package "competicao" {
+    }
+
+    package "inscricao" {
+    }
+
+    package "relatorio" {
+    }
 }
 
-package "Gestão de Participantes" as GestaoParticipantes {
-  class Atleta
-  class Pais
-  class Inscricao
+package "controller" #FCF3CF {
+
+    package "competicao" {
+    }
+
+    package "inscricao" {
+    }
+
+    package "resultado" {
+    }
+
+    package "relatorio" {
+    }
+
+    package "local" {
+    }
 }
 
-package "Infraestrutura" as Infraestrutura {
-  class Local
+package "service" #E8DAEF {
+
+    package "competicao" {
+    }
+
+    package "inscricao" {
+    }
+
+    package "resultado" {
+    }
+
+    package "relatorio" {
+    }
+
+    package "alocacao" {
+    }
+
+    package "validation" {
+    }
 }
 
-package "Resultados e Relatórios" as ResultadosRelatorios {
-  class Resultado
-  class RelatorioMedalhas
+package "repository" #FAD7A0 {
+
+    package "competicao" {
+    }
+
+    package "inscricao" {
+    }
+
+    package "resultado" {
+    }
+
+    package "local" {
+    }
+
+    package "atleta" {
+    }
+
+    package "pais" {
+    }
 }
 
-' Dependências entre os pacotes
-GestaoCompeticoes --> Infraestrutura : "depende de"
-GestaoCompeticoes --> GestaoParticipantes : "depende de"
-ResultadosRelatorios --> GestaoCompeticoes : "depende de"
-ResultadosRelatorios --> GestaoParticipantes : "depende de"
-GestaoParticipantes --> GestaoCompeticoes : "depende de (para inscrição)"
+package "model" #AED6F1 {
+
+    package "entity" {
+
+        class Competicao
+        class Atleta
+        class Pais
+        class Local
+        class Resultado
+        class Inscricao
+    }
+
+    package "enum" {
+    }
+
+    package "dto" {
+    }
+}
+
+package "mapper" #F5B7B1 {
+}
+
+package "exception" #D7DBDD {
+}
+
+package "config" #F9E79F {
+}
+
+package "tests" #85C1E9 {
+}
+
+view ..> controller
+controller ..> service
+service ..> repository
+repository ..> model
+
+mapper ..> model
+mapper ..> model::dto
+
+service ..> model
+controller ..> model::dto
+
+exception ..> controller
+exception ..> service
+
+config ..> service
+
+controller::competicao ..> service::competicao
+controller::inscricao ..> service::inscricao
+controller::resultado ..> service::resultado
+controller::relatorio ..> service::relatorio
+
+service::competicao ..> repository::competicao
+service::inscricao ..> repository::inscricao
+service::resultado ..> repository::resultado
+
+service::alocacao ..> repository::local
+
+service::relatorio ..> repository::resultado
+service::relatorio ..> repository::pais
 
 @enduml

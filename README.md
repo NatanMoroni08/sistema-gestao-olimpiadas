@@ -68,7 +68,7 @@ O diagrama de classes representa a estrutura estática do sistema, mostrando as 
 
 Este diagrama organiza as classes do sistema em pacotes lógicos para gerenciar as dependências e separar as responsabilidades.
 
-<img width="800px" src="./imagens/diagrama-de-pacotes.png" alt="Diagrama de Pacotes">
+![diagrama-pacotes](./images/pacotes.png)
 
 ### Diagrama de Componentes
 
